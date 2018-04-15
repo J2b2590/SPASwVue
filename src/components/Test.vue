@@ -9,7 +9,13 @@
 		</ul>
 		<button v-on:click="greeting('Hello World')"> say greeting</button>
 		<br />
-		<input type='text' v-on:keyup="pressKey">
+		<input type='text' v-on:keyup="pressKey" v-on:keyup.enter="enterHit">
+		<hr />
+		<label>First Name: </label><input type='text' v-model="user.firstName">	
+		<br />
+		<label>Last Name: </label><input type='text' v-model="user.lastName">
+		<h3>{{fullName}}</h3>
+		<h2>{{msg}}</h2>	
 	</div>
 </template>
 
@@ -17,6 +23,12 @@
 <script>
 	export default {
 		name: 'test',
+		props: {
+			msg: {
+				type: String,
+				default:'foobar'
+			}
+		},
 		data() {
 			return {
 				title: "Hello World",
@@ -38,8 +50,16 @@
 			},
 			pressKey: function(e){
 				console.log(e.target.value);
+			},
+			enterHit: function() {
+				console.log('you hit enter')
 			}
-		}
+		},
+		 computed: {
+		 	fullName: function(){
+		 		return this.user.firstName + ' ' + this.user.lastName
+		 	}
+		 }
 	}
 </script>
 
